@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<title>Calculator</title>
+	<style>
+		.button {
+			margin-top: 10px;
+			margin-left: 10px;
+			width: 50px;
+			height: 50px;
+			border: none;
+			border-radius: 10px;
+			font-size: 18px;
+			cursor: pointer;
+		}
+		.button:hover {
+			background-color: #e9e9edb5;
+		}
+		#screen {
+			background-color: #e9edef;
+			height: 81px;
+			width: 234px;
+			border-radius: 10px;
+			font-size: 20px;
+			padding: 10px;
+			font-weight: bold;
+			position: relative;
+		}
+		#result-holder {
+			position: absolute;
+			bottom: 5px;
+			right: 8px;
+			font-size: 25px;
+		}
+		#value-holder {
+			word-wrap: break-word;
+		}
+	</style>
+</head>
+<body style="display: flex; justify-content: center; background-color: #e9edef">
+	<div style="background-color: white; height: 350px; width: 250px; padding: 30px; border-radius: 10px">
+		<div id="screen">
+			<div id="value-holder"></div>
+			<div id="result-holder">0</div>
+		</div>
+		<div style="display: flex;">
+			<button class="button">7</button>
+			<button class="button">8</button>
+			<button class="button">9</button>
+			<button class="button">/</button>
+		</div>
+		<div style="display: flex;">
+			<button class="button">4</button>
+			<button class="button">5</button>
+			<button class="button">6</button>
+			<button class="button">*</button>
+		</div>
+		<div style="display: flex;">
+			<button class="button">1</button>
+			<button class="button">2</button>
+			<button class="button">3</button>
+			<button class="button">-</button>
+		</div>
+		<div style="display: flex;">
+			<button class="button">0</button>
+			<button class="button">C</button>
+			<button class="button">=</button>
+			<button class="button">+</button>
+		</div>
+	</div>
+</body>
+</html>
+
+<script>
+	// These variables store the calculator's state
+	let firstNumber = "";        // The first number in the calculation
+	let secondNumber = "";       // The second number in the calculation
+	let operator = "";           // The operator (+, -, *, /)
+	let isEnteringSecondNumber = false;  // Are we entering the second number?
+	let lastKeyPressed = "";     // What was the last button pressed?
+
+	// Get the display elements
+	const valueElement = document.getElementById("value-holder");
+	const resultElement = document.getElementById("result-holder");
+
+	// Set up all buttons to respond to clicks
+	const allButtons = document.getElementsByClassName("button");
+
+	Array.from(allButtons).forEach(button => {
+		button.addEventListener("click", () => {
+			const key = button.textContent;
+			if (key === "C") {
+				clearCalculator();
+			} else {
+				handleButtonPress(key);
+			}
+		});
+	});
+
+	// Clear everything and reset the calculator
+	function clearCalculator() {
+		firstNumber = "";
+		secondNumber = "";
+		operator = "";
+		isEnteringSecondNumber = false;
+		lastKeyPressed = "";
+		valueElement.innerHTML = "";
+		resultElement.innerHTML = "0";
+	}
+
+	// Handle when any button is pressed (except Clear)
+	function handleButtonPress(key) {
+		if (isNumber(key)) {
+			// User pressed a number
+			handleNumberPress(key);
+		} else if (isOperator(key)) {
+			// User pressed an operator (+, -, *, /)
+			handleOperatorPress(key);
+		} else if (key === "=") {
+			// User pressed equals
+			calculateResult();
+		}
+	}
+
+	// Check if a key is a number (0-9)
+	// We check if the key is one of the digit characters
+	function isNumber(key) {
+		return key === "0" || key === "1" || key === "2" || key === "3" || key === "4" || key === "5" || key === "6" || key === "7" || key === "8" || key === "9";
+	}
+
+	// Check if a key is an operator (+, -, *, /)
+	function isOperator(key) {
+		return key === "+" || key === "-" || key === "*" || key === "/";
+	}
+
+	// Handle when a number button is pressed
+	function handleNumberPress(key) {
+		// If the last key was "=", start a fresh calculation
+		if (lastKeyPressed === "=") {
+			clearCalculator();
+			firstNumber = key;
+		} else if (isEnteringSecondNumber) {
+			// Add to second number
+			secondNumber = secondNumber + key;
+		} else {
+			// Add to first number
+			firstNumber = firstNumber + key;
+		}
+		addToScreen(key);
+		lastKeyPressed = key;
+	}
+
+	// Add a number or operator to the screen display
+	function addToScreen(key) {
+		valueElement.innerHTML = valueElement.innerHTML + key;
+	}
+
+	// Handle when an operator button is pressed
+	function handleOperatorPress(key) {
+		// If the last key was also an operator, replace it instead of adding a new one
+		if (isOperator(lastKeyPressed)) {
+			// Replace the operator on screen
+			let currentDisplay = valueElement.innerHTML;
+
+			// Remove the last character (the old operator) and add the new operator
+			let displayWithoutLastChar = currentDisplay.slice(0, -1);
+			valueElement.innerHTML = displayWithoutLastChar + key;
+			operator = key;
+			lastKeyPressed = key;
+			return;
+		} else {
+			// If we already have a complete calculation (both numbers and operator), calculate first
+			if (firstNumber && operator && secondNumber) {
+				calculateResult();
+			}
+
+			// If the last key was "=" or we just calculated, update display to show result with new operator
+			if (lastKeyPressed === "=" || (firstNumber && operator && secondNumber)) {
+				valueElement.innerHTML = firstNumber + key;
+			} else {
+				// Otherwise, just add the operator to what's already on screen
+				addToScreen(key);
+			}
+
+			// Set the new operator
+			operator = key;
+			isEnteringSecondNumber = true;
+			lastKeyPressed = key;
+		}
+	}
+
+	// Calculate and show the result
+	function calculateResult() {
+		// Make sure we have both numbers and an operator
+		if (!firstNumber || !secondNumber || !operator) {
+			return;
+		}
+
+		// Convert strings to numbers
+		const num1 = Number(firstNumber);
+		const num2 = Number(secondNumber);
+
+		// Calculate the result based on the operator
+		let result = 0;
+		if (operator === "+") {
+			result = num1 + num2;
+		} else if (operator === "-") {
+			result = num1 - num2;
+		} else if (operator === "*") {
+			result = num1 * num2;
+		} else if (operator === "/") {
+			// Check for division by zero
+			if (num2 === 0) {
+				resultElement.innerHTML = "Error";
+				return;
+			} else {
+				result = num1 / num2;
+			}
+		}
+
+		// Show the result
+		resultElement.innerHTML = result;
+
+		// Reset for the next calculation
+		// The result becomes the new first number (rounded for display if needed)
+		firstNumber = result.toString();
+		secondNumber = "";
+		operator = "";
+		isEnteringSecondNumber = false;
+		lastKeyPressed = "=";
+	}
+</script>
