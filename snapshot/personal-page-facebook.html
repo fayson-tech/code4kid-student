@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Personal Page - Like Facebook</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f2f5;
+      color: #1c1e21;
+    }
+    
+    .header {
+      background-color: #1877f2;
+      color: white;
+      padding: 15px 0;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .header-content {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+    }
+    
+    .nav-buttons {
+      display: flex;
+      gap: 10px;
+    }
+    
+    .nav-button {
+      background-color: #42a5f5;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    
+    .nav-button:hover {
+      background-color: #1976d2;
+    }
+    
+    .main-content {
+      max-width: 1000px;
+      margin: 20px auto;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: 1fr 2fr 1fr;
+      gap: 20px;
+    }
+    
+    .left-sidebar {
+      background-color: white;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .profile-card {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    
+    .profile-picture {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background-color: #e3f2fd;
+      margin: 0 auto 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+      color: #1877f2;
+    }
+    
+    .profile-name {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    
+    .profile-age {
+      color: #65676b;
+      font-size: 14px;
+    }
+    
+    .menu-item {
+      display: flex;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid #f0f2f5;
+      cursor: pointer;
+    }
+    
+    .menu-item:hover {
+      background-color: #f0f2f5;
+    }
+    
+    .menu-icon {
+      width: 20px;
+      margin-right: 10px;
+      font-size: 16px;
+    }
+    
+    .center-content {
+      background-color: white;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .post-box {
+      border: 1px solid #e4e6ea;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 20px;
+    }
+    
+    .post-input {
+      width: 100%;
+      border: none;
+      resize: none;
+      font-size: 16px;
+      margin-bottom: 15px;
+      font-family: Arial, sans-serif;
+    }
+    
+    .post-input:focus {
+      outline: none;
+    }
+    
+    .post-button {
+      background-color: #1877f2;
+      color: white;
+      border: none;
+      padding: 8px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    
+    .post-button:hover {
+      background-color: #166fe5;
+    }
+    
+    .post {
+      border: 1px solid #e4e6ea;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 15px;
+    }
+    
+    .post-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    
+    .post-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: #e3f2fd;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 10px;
+      font-size: 16px;
+      color: #1877f2;
+    }
+    
+    .post-info {
+      flex: 1;
+    }
+    
+    .post-author {
+      font-weight: bold;
+      font-size: 14px;
+    }
+    
+    .post-time {
+      color: #65676b;
+      font-size: 12px;
+    }
+    
+    .post-content {
+      font-size: 14px;
+      line-height: 1.4;
+      margin-bottom: 10px;
+    }
+    
+    .post-actions {
+      display: flex;
+      gap: 15px;
+      border-top: 1px solid #e4e6ea;
+      padding-top: 10px;
+    }
+    
+    .action-button {
+      background: none;
+      border: none;
+      color: #65676b;
+      cursor: pointer;
+      font-size: 14px;
+      padding: 5px 10px;
+      border-radius: 4px;
+    }
+    
+    .action-button:hover {
+      background-color: #f0f2f5;
+    }
+    
+    .right-sidebar {
+      background-color: white;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .section-title {
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 15px;
+      color: #1c1e21;
+    }
+    
+    .friend-item {
+      display: flex;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid #f0f2f5;
+    }
+    
+    .friend-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background-color: #e3f2fd;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 10px;
+      font-size: 14px;
+      color: #1877f2;
+    }
+    
+    .friend-name {
+      font-size: 14px;
+      color: #1c1e21;
+    }
+    
+    .online-indicator {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: #31a24c;
+      margin-left: auto;
+    }
+    
+    @media (max-width: 768px) {
+      .main-content {
+        grid-template-columns: 1fr;
+      }
+      
+      .left-sidebar, .right-sidebar {
+        order: 2;
+      }
+      
+      .center-content {
+        order: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="header-content">
+      <div class="logo">📘 MyBook</div>
+      <div class="nav-buttons">
+        <button class="nav-button">🏠 Home</button>
+        <button class="nav-button">👥 Friends</button>
+        <button class="nav-button">📷 Photos</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="main-content">
+    <div class="left-sidebar">
+      <div class="profile-card">
+        <div class="profile-picture">👧</div>
+        <div class="profile-name">Emma Johnson</div>
+        <div class="profile-age">10 years old</div>
+      </div>
+      
+      <div class="menu-item">
+        <span class="menu-icon">👤</span>
+        <span>My Profile</span>
+      </div>
+      <div class="menu-item">
+        <span class="menu-icon">👥</span>
+        <span>Friends</span>
+      </div>
+      <div class="menu-item">
+        <span class="menu-icon">📷</span>
+        <span>Photos</span>
+      </div>
+      <div class="menu-item">
+        <span class="menu-icon">🎮</span>
+        <span>Games</span>
+      </div>
+      <div class="menu-item">
+        <span class="menu-icon">📚</span>
+        <span>School</span>
+      </div>
+      <div class="menu-item">
+        <span class="menu-icon">🎨</span>
+        <span>Art</span>
+      </div>
+    </div>
+
+    <div class="center-content">
+      <div class="post-box">
+        <textarea class="post-input" placeholder="What's on your mind, Emma?"></textarea>
+        <button class="post-button">Post</button>
+      </div>
+
+      <div class="post">
+        <div class="post-header">
+          <div class="post-avatar">👧</div>
+          <div class="post-info">
+            <div class="post-author">Emma Johnson</div>
+            <div class="post-time">2 hours ago</div>
+          </div>
+        </div>
+        <div class="post-content">
+          Just finished my art project! I drew a beautiful rainbow unicorn! 🦄🌈 It took me all afternoon but I'm so happy with how it turned out! 
+        </div>
+        <div class="post-actions">
+          <button class="action-button">👍 Like</button>
+          <button class="action-button">💬 Comment</button>
+          <button class="action-button">📤 Share</button>
+        </div>
+      </div>
+
+      <div class="post">
+        <div class="post-header">
+          <div class="post-avatar">👧</div>
+          <div class="post-info">
+            <div class="post-author">Emma Johnson</div>
+            <div class="post-time">Yesterday</div>
+          </div>
+        </div>
+        <div class="post-content">
+          Had so much fun at the park today! Played on the swings and made a new friend named Sarah. We both love drawing and reading books! 📚✨
+        </div>
+        <div class="post-actions">
+          <button class="action-button">👍 Like</button>
+          <button class="action-button">💬 Comment</button>
+          <button class="action-button">📤 Share</button>
+        </div>
+      </div>
+
+      <div class="post">
+        <div class="post-header">
+          <div class="post-avatar">👧</div>
+          <div class="post-info">
+            <div class="post-author">Emma Johnson</div>
+            <div class="post-time">3 days ago</div>
+          </div>
+        </div>
+        <div class="post-content">
+          Got an A+ on my math test! 🎉 My teacher said I'm doing great! Math is actually fun when you understand it! 📊
+        </div>
+        <div class="post-actions">
+          <button class="action-button">👍 Like</button>
+          <button class="action-button">💬 Comment</button>
+          <button class="action-button">📤 Share</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="right-sidebar">
+      <div class="section-title">Online Friends</div>
+      
+      <div class="friend-item">
+        <div class="friend-avatar">👦</div>
+        <div class="friend-name">Tommy Smith</div>
+        <div class="online-indicator"></div>
+      </div>
+      
+      <div class="friend-item">
+        <div class="friend-avatar">👧</div>
+        <div class="friend-name">Sarah Wilson</div>
+        <div class="online-indicator"></div>
+      </div>
+      
+      <div class="friend-item">
+        <div class="friend-avatar">👦</div>
+        <div class="friend-name">Jake Brown</div>
+        <div class="online-indicator"></div>
+      </div>
+      
+      <div class="friend-item">
+        <div class="friend-avatar">👧</div>
+        <div class="friend-name">Mia Davis</div>
+        <div class="online-indicator"></div>
+      </div>
+      
+      <div class="friend-item">
+        <div class="friend-avatar">👦</div>
+        <div class="friend-name">Alex Johnson</div>
+        <div class="online-indicator"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.querySelector('.post-button').addEventListener('click', function() {
+      const input = document.querySelector('.post-input');
+      const content = input.value.trim();
+      
+      if (content) {
+        const postContainer = document.querySelector('.center-content');
+        const newPost = document.createElement('div');
+        newPost.className = 'post';
+        newPost.innerHTML = `
+          <div class="post-header">
+            <div class="post-avatar">👧</div>
+            <div class="post-info">
+              <div class="post-author">Emma Johnson</div>
+              <div class="post-time">Just now</div>
+            </div>
+          </div>
+          <div class="post-content">${content}</div>
+          <div class="post-actions">
+            <button class="action-button">👍 Like</button>
+            <button class="action-button">💬 Comment</button>
+            <button class="action-button">📤 Share</button>
+          </div>
+        `;
+        
+        const postBox = document.querySelector('.post-box');
+        postContainer.insertBefore(newPost, postBox.nextSibling);
+        input.value = '';
+      }
+    });
+    
+    document.addEventListener('click', function(e) {
+      if (e.target.classList.contains('action-button') && e.target.textContent === '👍 Like') {
+        if (e.target.textContent === '👍 Like') {
+          e.target.textContent = '❤️ Liked';
+          e.target.style.color = '#e31b23';
+        } else {
+          e.target.textContent = '👍 Like';
+          e.target.style.color = '#65676b';
+        }
+      }
+    });
+  </script>
+</body>
+</html>
