@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Simple Page</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #e8f4fd;
+      color: #333;
+      font-size: 16px;
+    }
+    
+    .header {
+      background-color: #4CAF50;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    
+    .header h1 {
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+    
+    .header p {
+      font-size: 18px;
+    }
+    
+    .main-content {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 0 20px;
+    }
+    
+    .profile-section {
+      background-color: white;
+      border-radius: 15px;
+      padding: 30px;
+      margin-bottom: 30px;
+      text-align: center;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    
+    .profile-picture {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      background-color: #ffeb3b;
+      margin: 0 auto 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 60px;
+      border: 5px solid #4CAF50;
+    }
+    
+    .profile-name {
+      font-size: 28px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 10px;
+    }
+    
+    .profile-age {
+      font-size: 20px;
+      color: #666;
+      margin-bottom: 20px;
+    }
+    
+    .profile-info {
+      font-size: 18px;
+      color: #555;
+      line-height: 1.6;
+    }
+    
+    .posts-section {
+      background-color: white;
+      border-radius: 15px;
+      padding: 30px;
+      margin-bottom: 30px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    
+    .section-title {
+      font-size: 24px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    
+    .post-box {
+      border: 3px solid #4CAF50;
+      border-radius: 15px;
+      padding: 20px;
+      margin-bottom: 20px;
+      background-color: #f9f9f9;
+    }
+    
+    .post-input {
+      width: 100%;
+      border: 2px solid #ddd;
+      border-radius: 10px;
+      padding: 15px;
+      font-size: 18px;
+      margin-bottom: 15px;
+      font-family: Arial, sans-serif;
+      resize: none;
+      height: 100px;
+    }
+    
+    .post-input:focus {
+      outline: none;
+      border-color: #4CAF50;
+    }
+    
+    .post-button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 18px;
+      font-weight: bold;
+    }
+    
+    .post-button:hover {
+      background-color: #45a049;
+    }
+    
+    .post {
+      border: 2px solid #ddd;
+      border-radius: 15px;
+      padding: 20px;
+      margin-bottom: 20px;
+      background-color: white;
+    }
+    
+    .post-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+    
+    .post-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: #ffeb3b;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 15px;
+      font-size: 24px;
+      border: 3px solid #4CAF50;
+    }
+    
+    .post-info {
+      flex: 1;
+    }
+    
+    .post-author {
+      font-weight: bold;
+      font-size: 18px;
+      color: #333;
+    }
+    
+    .post-time {
+      color: #666;
+      font-size: 14px;
+    }
+    
+    .post-content {
+      font-size: 16px;
+      line-height: 1.6;
+      margin-bottom: 15px;
+      color: #333;
+    }
+    
+    .post-actions {
+      display: flex;
+      gap: 20px;
+      border-top: 2px solid #eee;
+      padding-top: 15px;
+    }
+    
+    .action-button {
+      background-color: #f0f0f0;
+      border: 2px solid #ddd;
+      color: #333;
+      cursor: pointer;
+      font-size: 16px;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: bold;
+    }
+    
+    .action-button:hover {
+      background-color: #e0e0e0;
+    }
+    
+    .friends-section {
+      background-color: white;
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    
+    .friend-item {
+      display: flex;
+      align-items: center;
+      padding: 15px;
+      border: 2px solid #eee;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      background-color: #f9f9f9;
+    }
+    
+    .friend-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: #ffeb3b;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 15px;
+      font-size: 20px;
+      border: 2px solid #4CAF50;
+    }
+    
+    .friend-name {
+      font-size: 18px;
+      color: #333;
+      font-weight: bold;
+    }
+    
+    .online-indicator {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: #4CAF50;
+      margin-left: auto;
+      border: 2px solid white;
+    }
+    
+    @media (max-width: 600px) {
+      .main-content {
+        padding: 0 15px;
+      }
+      
+      .profile-picture {
+        width: 120px;
+        height: 120px;
+        font-size: 48px;
+      }
+      
+      .profile-name {
+        font-size: 24px;
+      }
+      
+      .section-title {
+        font-size: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>🌟 My Simple Page 🌟</h1>
+    <p>Welcome to my personal space!</p>
+  </div>
+
+  <div class="main-content">
+    <div class="profile-section">
+      <div class="profile-picture">👧</div>
+      <div class="profile-name">Emma Johnson</div>
+      <div class="profile-age">10 years old</div>
+      <div class="profile-info">
+        I love drawing, reading books, and playing with my friends! 
+        My favorite color is purple and I want to be an artist when I grow up! 🎨
+      </div>
+    </div>
+
+    <div class="posts-section">
+      <div class="section-title">📝 My Posts</div>
+      
+      <div class="post-box">
+        <textarea class="post-input" placeholder="What do you want to share today?"></textarea>
+        <button class="post-button">📤 Share Post</button>
+      </div>
+
+      <div class="post">
+        <div class="post-header">
+          <div class="post-avatar">👧</div>
+          <div class="post-info">
+            <div class="post-author">Emma Johnson</div>
+            <div class="post-time">Today at 3:00 PM</div>
+          </div>
+        </div>
+        <div class="post-content">
+          I just finished my art project! I drew a beautiful rainbow unicorn! 🦄🌈 
+          It took me all afternoon but I'm so happy with how it turned out! 
+          My teacher said it was the best drawing in the class! 🎉
+        </div>
+        <div class="post-actions">
+          <button class="action-button">👍 Like</button>
+          <button class="action-button">💬 Comment</button>
+        </div>
+      </div>
+
+      <div class="post">
+        <div class="post-header">
+          <div class="post-avatar">👧</div>
+          <div class="post-info">
+            <div class="post-author">Emma Johnson</div>
+            <div class="post-time">Yesterday at 2:30 PM</div>
+          </div>
+        </div>
+        <div class="post-content">
+          Had so much fun at the park today! 🎪 Played on the swings and made a new friend named Sarah. 
+          We both love drawing and reading books! We're going to have a playdate next weekend! 📚✨
+        </div>
+        <div class="post-actions">
+          <button class="action-button">👍 Like</button>
+          <button class="action-button">💬 Comment</button>
+        </div>
+      </div>
+
+      <div class="post">
+        <div class="post-header">
+          <div class="post-avatar">👧</div>
+          <div class="post-info">
+            <div class="post-author">Emma Johnson</div>
+            <div class="post-time">3 days ago</div>
+          </div>
+        </div>
+        <div class="post-content">
+          Got an A+ on my math test! 🎉 My teacher said I'm doing great! 
+          Math is actually fun when you understand it! I helped my friend Tommy with his homework too! 📊
+        </div>
+        <div class="post-actions">
+          <button class="action-button">👍 Like</button>
+          <button class="action-button">💬 Comment</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="friends-section">
+      <div class="section-title">👥 My Friends</div>
+      
+      <div class="friend-item">
+        <div class="friend-avatar">👦</div>
+        <div class="friend-name">Tommy Smith</div>
+        <div class="online-indicator"></div>
+      </div>
+      
+      <div class="friend-item">
+        <div class="friend-avatar">👧</div>
+        <div class="friend-name">Sarah Wilson</div>
+        <div class="online-indicator"></div>
+      </div>
+      
+      <div class="friend-item">
+        <div class="friend-avatar">👦</div>
+        <div class="friend-name">Jake Brown</div>
+        <div class="online-indicator"></div>
+      </div>
+      
+      <div class="friend-item">
+        <div class="friend-avatar">👧</div>
+        <div class="friend-name">Mia Davis</div>
+        <div class="online-indicator"></div>
+      </div>
+      
+      <div class="friend-item">
+        <div class="friend-avatar">👦</div>
+        <div class="friend-name">Alex Johnson</div>
+        <div class="online-indicator"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.querySelector('.post-button').addEventListener('click', function() {
+      const input = document.querySelector('.post-input');
+      const content = input.value.trim();
+      
+      if (content) {
+        const postsSection = document.querySelector('.posts-section');
+        const newPost = document.createElement('div');
+        newPost.className = 'post';
+        newPost.innerHTML = `
+          <div class="post-header">
+            <div class="post-avatar">👧</div>
+            <div class="post-info">
+              <div class="post-author">Emma Johnson</div>
+              <div class="post-time">Just now</div>
+            </div>
+          </div>
+          <div class="post-content">${content}</div>
+          <div class="post-actions">
+            <button class="action-button">👍 Like</button>
+            <button class="action-button">💬 Comment</button>
+          </div>
+        `;
+        
+        const postBox = document.querySelector('.post-box');
+        postsSection.insertBefore(newPost, postBox.nextSibling);
+        input.value = '';
+      }
+    });
+    
+    document.addEventListener('click', function(e) {
+      if (e.target.classList.contains('action-button') && e.target.textContent === '👍 Like') {
+        if (e.target.textContent === '👍 Like') {
+          e.target.textContent = '❤️ Liked!';
+          e.target.style.backgroundColor = '#ffeb3b';
+          e.target.style.borderColor = '#ff9800';
+        } else {
+          e.target.textContent = '👍 Like';
+          e.target.style.backgroundColor = '#f0f0f0';
+          e.target.style.borderColor = '#ddd';
+        }
+      }
+    });
+  </script>
+</body>
+</html>
